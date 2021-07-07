@@ -3,9 +3,14 @@ import zipfile
 import xml.etree.ElementTree as ET
 import hashlib
 import pandas as pd
-
 import requests
+from upload_to_s3 import upload_to_s3
+import os
+import logger
 
+def _check_output_dir_exists():
+    if not os.path.exists('output'):
+        os.makedirs('output')
 
 class MyParser:
     """
@@ -18,6 +23,8 @@ class MyParser:
     """
 
     def __init__(self, zip_url, checksum):
+        self.logger = logger.get_logger()
+        self.logger.info("xml_parser:: MyParser class instantiated")
         """ The constructor expects the download link for the xml and expected MD5 of the zipped content"""
         self.url = zip_url
         self.zip_checksum = checksum
@@ -28,20 +35,27 @@ class MyParser:
         self.csv_rows = list()
 
     def zip_downloader(self):
-        "Downloads the zipped xml in memory and verifies the download using MD5 checksum"
+        """Downloads the zipped xml in memory and verifies the download using MD5 checksum"""
+        self.logger.info("xml_parser:: About to download xml zip")
         zipped_content = requests.get(self.url).content
         downloaded_zip_hash = (hashlib.md5(zipped_content).hexdigest())
+        self.logger.info(f"xml_parser:: xml zip downlaoded successfully, MD5 has is {downloaded_zip_hash}")
         if downloaded_zip_hash == self.zip_checksum:
             self.zipped_content = zipped_content
+            self.logger.info("xml_parser:: the checksums matches, xml zip downloaded properly")
         else:
+            self.logger.error(f"xml_parser:: The checksums don't match, expected is {self.zip_checksum}, downloaded "
+                              f"file checksum is {downloaded_zip_hash}")
             raise Exception("Something went wrong while downloading. The hashes don't match")
 
     def unzip_file(self):
-        "unzips the zipped xml content in memory. Returns the root of the xml tree"
+        """unzips the zipped xml content in memory. Returns the root of the xml tree"""
         zip_handle = zipfile.ZipFile(BytesIO(self.zipped_content))
         self.xml_filename = zip_handle.namelist()[0]
+        self.logger.info(f"xml_parser::unzipped xml, filename is {self.xml_filename}")
         self.xml_content = zip_handle.read(self.xml_filename)
         self.root = ET.fromstring(self.xml_content)
+        self.logger.info(f"xml_parser:: the root node of the xml is {self.root.tag}")
         return self.root
 
     def set_csv_rows(self, node):
@@ -63,7 +77,7 @@ class MyParser:
         Creates a dict for each row and append the dict to csv_rows
         """
         ns = self.csv_rows_nodes[0].tag.split('TermntdRcrd')[0]
-        print("namespace is", ns)
+        self.logger.info(f"xml_parser:: The namespace for the csv rows is {ns}")
         for attrbt in self.csv_rows_nodes:
             # for attrbt in row:
 
@@ -84,12 +98,14 @@ class MyParser:
         The dataframe is dumped to the csv file
         """
         self.iterate_csv_nodes()
-        print(self.csv_rows[50])
         pandas_cols = ["Id", "FullNm", "ClssfctnTp", "CmmdtyDerivInd", "NtnlCcy", "Issr"]
         csv_cols = ["FinInstrmGnlAttrbts.Id", "FinInstrmGnlAttrbts.FullNm", "FinInstrmGnlAttrbts.ClssfctnTp",
                     "FinInstrmGnlAttrbts.CmmdtyDerivInd", "FinInstrmGnlAttrbts.NtnlCcy", "Issr"]
         df = pd.DataFrame(self.csv_rows, columns=pandas_cols)
-        print (df)
-        with open('output.csv', 'a', newline='') as converted_csv:
+        self.logger.info("xml_parser:: rows are not converted to a dataframe")
+        _check_output_dir_exists()
+        with open('output/output.csv', 'a', newline='') as converted_csv:
             converted_csv.write(",".join(csv_cols))
             df.to_csv(converted_csv, header=False, index=False)
+        self.logger.info("xml_parser:: CSV File created successfully")
+        upload_to_s3('shrenik4234', 'output/output.csv', 'output/output.csv')

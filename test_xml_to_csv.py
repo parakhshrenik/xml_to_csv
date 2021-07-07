@@ -1,12 +1,11 @@
 import pytest
 from dltins_link import DLTINS_Link
 from xml_parser import MyParser
-
+import logging
 
 def test_download_from_link():
     base_url = "https://registers.esma.europa.eu/solr/esma_registers_firds_files/select"
     obj = DLTINS_Link(base_url)
-    print(obj.download_from_link())
     assert obj.download_from_link() == open('test_data/select.xml').read()
 
 
@@ -29,8 +28,6 @@ def test_parse_corrupt_xml():
     base_url = "https://registers.esma.europa.eu/solr/esma_registers_firds_files/select"
     obj = DLTINS_Link(base_url)
     ret_val1, ret_val2, ret_val3 = obj.parse_xml(open("test_data/corrupt_select.xml").read())
-    print (obj.download_link)
-    print (obj.checksum)
     assert ret_val1 == False
     # assert ret_val2 == "http://firds.esma.europa.eu/firds/DLTINS_20210117_01of01.zip"
     # assert ret_val3 == "852b2dde71cf114289ad95ada2a4e406"
