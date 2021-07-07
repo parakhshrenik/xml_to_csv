@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module xml_parser</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>xml_parser</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:d%3A%5Clearning%5Crecruitment%5Csteeleye%5Cxml_to_csv%5Cxml_parser.py">d:\learning\recruitment\steeleye\xml_to_csv\xml_parser.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="xml.etree.ElementTree.html">xml.etree.ElementTree</a><br>
+<a href="hashlib.html">hashlib</a><br>
+</td><td width="25%" valign=top><a href="logger.html">logger</a><br>
+<a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="pandas.html">pandas</a><br>
+<a href="requests.html">requests</a><br>
+</td><td width="25%" valign=top><a href="zipfile.html">zipfile</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="xml_parser.html#MyParser">MyParser</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="MyParser">class <strong>MyParser</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#MyParser">MyParser</a>(zip_url,&nbsp;checksum)<br>
+&nbsp;<br>
+<a href="#MyParser">MyParser</a>&nbsp;class&nbsp;has&nbsp;to&nbsp;intelligence&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;Download&nbsp;the&nbsp;xml&nbsp;and&nbsp;verify&nbsp;using&nbsp;checksum<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;unzip&nbsp;the&nbsp;downloaded&nbsp;xml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;parse&nbsp;the&nbsp;xml&nbsp;for&nbsp;csv&nbsp;rows<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;convert&nbsp;the&nbsp;rows&nbsp;to&nbsp;a&nbsp;pandas&nbsp;dataframe<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;dump&nbsp;the&nbsp;dataframe&nbsp;to&nbsp;a&nbsp;csv&nbsp;file&nbsp;completing&nbsp;the&nbsp;xml&nbsp;to&nbsp;csv&nbsp;conversion<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="MyParser-__init__"><strong>__init__</strong></a>(self, zip_url, checksum)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="MyParser-iterate_csv_nodes"><strong>iterate_csv_nodes</strong></a>(self)</dt><dd><tt>Iterates&nbsp;through&nbsp;each&nbsp;row,&nbsp;finds&nbsp;the&nbsp;relevant&nbsp;columns<br>
+Creates&nbsp;a&nbsp;dict&nbsp;for&nbsp;each&nbsp;row&nbsp;and&nbsp;append&nbsp;the&nbsp;dict&nbsp;to&nbsp;csv_rows</tt></dd></dl>
+
+<dl><dt><a name="MyParser-set_csv_rows"><strong>set_csv_rows</strong></a>(self, node)</dt><dd><tt>A&nbsp;recursive&nbsp;method&nbsp;to&nbsp;iterate&nbsp;through&nbsp;the&nbsp;child&nbsp;nodes&nbsp;of&nbsp;the&nbsp;xml<br>
+If&nbsp;a&nbsp;node&nbsp;is&nbsp;found&nbsp;with&nbsp;TermntRcrd&nbsp;is&nbsp;found,&nbsp;it&nbsp;gets&nbsp;appended&nbsp;to&nbsp;the&nbsp;list&nbsp;of&nbsp;rows</tt></dd></dl>
+
+<dl><dt><a name="MyParser-unzip_file"><strong>unzip_file</strong></a>(self)</dt><dd><tt>unzips&nbsp;the&nbsp;zipped&nbsp;xml&nbsp;content&nbsp;in&nbsp;memory.&nbsp;Returns&nbsp;the&nbsp;root&nbsp;of&nbsp;the&nbsp;xml&nbsp;tree</tt></dd></dl>
+
+<dl><dt><a name="MyParser-xml_to_csv"><strong>xml_to_csv</strong></a>(self)</dt><dd><tt>A&nbsp;dataframe&nbsp;is&nbsp;created&nbsp;from&nbsp;the&nbsp;csv_rows<br>
+A&nbsp;new&nbsp;csv&nbsp;file&nbsp;is&nbsp;created&nbsp;with&nbsp;required&nbsp;headers<br>
+The&nbsp;dataframe&nbsp;is&nbsp;dumped&nbsp;to&nbsp;the&nbsp;csv&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="MyParser-zip_downloader"><strong>zip_downloader</strong></a>(self)</dt><dd><tt>Downloads&nbsp;the&nbsp;zipped&nbsp;xml&nbsp;in&nbsp;memory&nbsp;and&nbsp;verifies&nbsp;the&nbsp;download&nbsp;using&nbsp;MD5&nbsp;checksum</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>

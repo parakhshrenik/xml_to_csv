@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module dltins_link</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>dltins_link</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:d%3A%5Clearning%5Crecruitment%5Csteeleye%5Cxml_to_csv%5Cdltins_link.py">d:\learning\recruitment\steeleye\xml_to_csv\dltins_link.py</a></font></td></tr></table>
+    <p><tt>Download&nbsp;the&nbsp;xml&nbsp;from&nbsp;this&nbsp;link<br>
+From&nbsp;the&nbsp;xml,&nbsp;please&nbsp;parse&nbsp;through&nbsp;to&nbsp;the&nbsp;first&nbsp;download&nbsp;link&nbsp;whose&nbsp;file_type&nbsp;is&nbsp;DLTINS&nbsp;and&nbsp;download&nbsp;the&nbsp;zip<br>
+Extract&nbsp;the&nbsp;xml&nbsp;from&nbsp;the&nbsp;zip.<br>
+Convert&nbsp;the&nbsp;contents&nbsp;of&nbsp;the&nbsp;xml&nbsp;into&nbsp;a&nbsp;CSV&nbsp;with&nbsp;the&nbsp;following&nbsp;header:</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="xml.etree.ElementTree.html">xml.etree.ElementTree</a><br>
+</td><td width="25%" valign=top><a href="logger.html">logger</a><br>
+</td><td width="25%" valign=top><a href="requests.html">requests</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="dltins_link.html#DLTINS_Link">DLTINS_Link</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="DLTINS_Link">class <strong>DLTINS_Link</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#DLTINS_Link">DLTINS_Link</a>(url)<br>
+&nbsp;<br>
+This&nbsp;class&nbsp;is&nbsp;to&nbsp;get&nbsp;the&nbsp;link&nbsp;to&nbsp;the&nbsp;DLTINS&nbsp;file&nbsp;and&nbsp;the&nbsp;checksum&nbsp;of&nbsp;the&nbsp;file<br>
+The&nbsp;base&nbsp;URL&nbsp;must&nbsp;be&nbsp;passed&nbsp;while&nbsp;creating&nbsp;an&nbsp;<a href="builtins.html#object">object</a>.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="DLTINS_Link-__init__"><strong>__init__</strong></a>(self, url)</dt><dd><tt>:param&nbsp;url:&nbsp;Constrcutor&nbsp;expects&nbsp;the&nbsp;URL&nbsp;to&nbsp;the&nbsp;base&nbsp;XML&nbsp;file.<br>
+Sets&nbsp;up&nbsp;the&nbsp;parameter&nbsp;which&nbsp;is&nbsp;hard-coded&nbsp;based&nbsp;on&nbsp;the&nbsp;given&nbsp;wiki.</tt></dd></dl>
+
+<dl><dt><a name="DLTINS_Link-download_from_link"><strong>download_from_link</strong></a>(self)</dt><dd><tt>Downloads&nbsp;the&nbsp;xml&nbsp;content&nbsp;from&nbsp;the&nbsp;given&nbsp;url&nbsp;using&nbsp;the&nbsp;default&nbsp;params&nbsp;set&nbsp;in&nbsp;init</tt></dd></dl>
+
+<dl><dt><a name="DLTINS_Link-parse_xml"><strong>parse_xml</strong></a>(self, xml_content)</dt><dd><tt>:param&nbsp;xml_content:&nbsp;-&nbsp;The&nbsp;base&nbsp;xml&nbsp;content&nbsp;which&nbsp;has&nbsp;links&nbsp;to&nbsp;multiple&nbsp;docs<br>
+&nbsp;<br>
+:returns&nbsp;True&nbsp;if&nbsp;successful&nbsp;alongwith&nbsp;the&nbsp;download&nbsp;link&nbsp;for&nbsp;the&nbsp;zipped&nbsp;xml&nbsp;content&nbsp;and&nbsp;its&nbsp;checksum<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;if&nbsp;the&nbsp;data&nbsp;isn't&nbsp;found&nbsp;in&nbsp;the&nbsp;provided&nbsp;base&nbsp;xml&nbsp;content</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>
